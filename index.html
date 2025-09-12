@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bespoke TODO List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: #fff;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            border-radius: 24px;
+            padding: 40px 32px;
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #6366f1;
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            background: #f1f5f9;
+            margin-bottom: 16px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            transition: box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #6366f1;
+            margin-right: 16px;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .task {
+            flex: 1;
+            color: #334155;
+            font-size: 1.1rem;
+        }
+        /* Tip: You can add a completed class to style checked tasks */
+        .completed .task {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+        /* Add button styling */
+        .add-task {
+            display: flex;
+            margin-top: 32px;
+        }
+        .add-input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 12px 0 0 12px;
+            border: 1px solid #c7d2fe;
+            font-size: 1rem;
+            outline: none;
+        }
+        .add-btn {
+            background: #6366f1;
+            color: #fff;
+            border: none;
+            border-radius: 0 12px 12px 0;
+            padding: 0 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+        .add-btn:hover {
+            background: #4338ca;
+        }
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container {
+                padding: 24px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My TODO List</h1>
+        <ul id="todo-list">
+            <li>
+                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="task">Learn HTML & CSS</span>
+            </li>
+            <li>
+                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="task">Start learning JavaScript</span>
+            </li>
+            <li>
+                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="task">Build interactive TODO list</span>
+            </li>
+        </ul>
+        <form class="add-task" autocomplete="off">
+            <input class="add-input" type="text" placeholder="Add a new task...">
+            <button class="add-btn" type="button" disabled>Add</button>
+        </form>
+        <!--
+            JavaScript Tips:
+            1. Enable the input and button, then add an event listener to the button to add new tasks to the list.
+            2. Add click event listeners to the checkboxes to toggle the 'completed' class on the parent <li>.
+            3. Store tasks in localStorage for persistence.
+            4. Animate task addition/removal for extra polish.
+        -->
+    </div>
+</body>
+</html>
