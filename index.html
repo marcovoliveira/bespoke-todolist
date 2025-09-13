@@ -110,7 +110,7 @@
         <h1>My TODO List</h1>
         <ul id="todo-list">
             <li>
-                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="checkbox" id="checkbox"><!-- JS: Add click event to toggle completed --></span>
                 <span class="task">Learn HTML & CSS</span>
             </li>
             <li>
@@ -123,8 +123,8 @@
             </li>
         </ul>
         <form class="add-task" autocomplete="off">
-            <input class="add-input" type="text" placeholder="Add a new task...">
-            <button class="add-btn" type="button" disabled>Add</button>
+            <input class="add-input" id="add-input" type="text" placeholder="Add a new task...">
+            <button class="add-btn" id="add-btn" type="button" disabled>Add</button>
         </form>
         <!--
             JavaScript Tips:
@@ -134,5 +134,22 @@
             4. Animate task addition/removal for extra polish.
         -->
     </div>
+
+    <script>
+        const input = document.getElementById('add-input');
+        const btn = document.getElementById('add-btn');
+        const todoList = document.getElementById('todo-list');
+
+        let todos = [];
+
+        btn.addEventListener('click', function() {
+            const text = input.value;
+            const newTodo = document.createElement('li');
+            newTodo.textContent = todos.push(text);
+            todoList.append(newTodo);
+        });
+
+        console.log(todoList);
+    </script>
 </body>
 </html>
