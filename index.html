@@ -114,11 +114,11 @@
                 <span class="task">Learn HTML & CSS</span>
             </li>
             <li>
-                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="checkbox" id="checkbox"><!-- JS: Add click event to toggle completed --></span>
                 <span class="task">Start learning JavaScript</span>
             </li>
             <li>
-                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="checkbox" id="checkbox"><!-- JS: Add click event to toggle completed --></span>
                 <span class="task">Build interactive TODO list</span>
             </li>
         </ul>
@@ -136,6 +136,8 @@
     </div>
 
     <script>
+        // Enabling Input and Button
+
         const input = document.getElementById('add-input');
         const btn = document.getElementById('add-btn');
         const todoList = document.getElementById('todo-list');
@@ -150,6 +152,16 @@
         });
 
         console.log(todoList);
+
+        // Checkbox click events - COMPLETED
+        const checkbox = document.querySelectorAll('#checkbox');
+
+        checkbox.forEach(btn => {
+            btn.addEventListener('click', function(){
+                btn.style.backgroundColor = '#4338ca';
+            });
+        });
+
     </script>
 </body>
 </html>
