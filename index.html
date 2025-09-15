@@ -155,12 +155,21 @@
 
         // Checkbox click events - COMPLETED
         const checkbox = document.querySelectorAll('#checkbox');
+        let isComplete = false;
 
-        checkbox.forEach(btn => {
-            btn.addEventListener('click', function(){
-                btn.style.backgroundColor = '#4338ca';
-            });
-        });
+        if (!isComplete){
+            checkbox.forEach(btn => {
+                btn.addEventListener('click', function(){
+                    btn.style.backgroundColor = '#4338ca';
+                }); 
+            });   
+        } else if (isComplete){
+            checkbox.forEach(btn =>{
+                btn.addEventListener('click', function() {
+                    btn.style.backgroundColor = '#fff';
+                })
+            })
+        };
 
     </script>
 </body>
