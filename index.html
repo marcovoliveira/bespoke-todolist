@@ -157,8 +157,28 @@
         const btn = document.getElementById('add-btn');
         const todoList = document.getElementById('todo-list');
 
-        let todos = [];
+        let loadTodo = JSON.parse(localStorage.getItem('todos')) || [];
+        loadTodo.forEach(taskText => {
 
+            const task = document.createElement('li');
+            const checkbox = document.createElement('span');
+            const taskDescription = document.createElement('span');
+            taskDescription.textContent = taskText;
+            checkbox.classList.add('checkbox');
+
+            task.appendChild(checkbox);
+            task.appendChild(taskDescription);
+            todoList.appendChild(task);
+        });
+
+
+        let todos = loadTodo;
+
+
+
+        function saveTodo() {
+            localStorage.setItem('todos', JSON.stringify(todos));
+        };
 
         btn.addEventListener('click', function () {
             const text = input.value;
@@ -171,12 +191,16 @@
                 const checkbox = document.createElement('span');
                 const taskDescription = document.createElement('span');
 
-                
+
                 checkbox.classList.add('checkbox');
+                checkbox.addEventListener('click', function () {
+                    btn.style.backgroundColor = '#4338ca';
+                });
                 taskDescription.classList.add('task');
                 taskDescription.textContent = text;
+                saveTodo();
 
-                task.appendChild(checkbox); 
+                task.appendChild(checkbox);
                 task.appendChild(taskDescription);
                 todoList.appendChild(task);
 
@@ -199,8 +223,8 @@
             checkbox.forEach(btn => {
                 btn.addEventListener('click', function () {
                     btn.style.backgroundColor = '#fff';
-                })
-            })
+                });
+            });
         };
 
     </script>
