@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .container {
             background: #fff;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
@@ -23,6 +25,7 @@
             width: 100%;
             max-width: 400px;
         }
+
         h1 {
             text-align: center;
             color: #6366f1;
@@ -30,11 +33,13 @@
             margin-bottom: 32px;
             letter-spacing: 2px;
         }
+
         ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         li {
             background: #f1f5f9;
             margin-bottom: 16px;
@@ -45,9 +50,11 @@
             transition: box-shadow 0.2s;
             box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
         }
+
         li:last-child {
             margin-bottom: 0;
         }
+
         .checkbox {
             width: 24px;
             height: 24px;
@@ -60,21 +67,25 @@
             align-items: center;
             justify-content: center;
         }
+
         .task {
             flex: 1;
             color: #334155;
             font-size: 1.1rem;
         }
+
         /* Tip: You can add a completed class to style checked tasks */
         .completed .task {
             text-decoration: line-through;
             color: #94a3b8;
         }
+
         /* Add button styling */
         .add-task {
             display: flex;
             margin-top: 32px;
         }
+
         .add-input {
             flex: 1;
             padding: 12px 16px;
@@ -83,6 +94,7 @@
             font-size: 1rem;
             outline: none;
         }
+
         .add-btn {
             background: #6366f1;
             color: #fff;
@@ -94,9 +106,11 @@
             font-weight: 700;
             transition: background 0.2s;
         }
+
         .add-btn:hover {
             background: #4338ca;
         }
+
         /* Responsive */
         @media (max-width: 500px) {
             .container {
@@ -105,26 +119,27 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>My TODO List</h1>
         <ul id="todo-list">
             <li>
-                <span class="checkbox" id="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
                 <span class="task">Learn HTML & CSS</span>
             </li>
             <li>
-                <span class="checkbox" id="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
                 <span class="task">Start learning JavaScript</span>
             </li>
             <li>
-                <span class="checkbox" id="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
                 <span class="task">Build interactive TODO list</span>
             </li>
         </ul>
         <form class="add-task" autocomplete="off">
             <input class="add-input" id="add-input" type="text" placeholder="Add a new task...">
-            <button class="add-btn" id="add-btn" type="button" disabled>Add</button>
+            <button class="add-btn" id="add-btn" type="button">Add</button>
         </form>
         <!--
             JavaScript Tips:
@@ -144,28 +159,45 @@
 
         let todos = [];
 
-        btn.addEventListener('click', function() {
+
+        btn.addEventListener('click', function () {
             const text = input.value;
-            const newTodo = document.createElement('li');
-            newTodo.textContent = todos.push(text);
-            todoList.append(newTodo);
+            todos.push(text);
+
+            input.value = '';
+
+            if (text !== '') {
+                const task = document.createElement('li');
+                const checkbox = document.createElement('span');
+                const taskDescription = document.createElement('span');
+
+                
+                checkbox.classList.add('checkbox');
+                taskDescription.classList.add('task');
+                taskDescription.textContent = text;
+
+                task.appendChild(checkbox); 
+                task.appendChild(taskDescription);
+                todoList.appendChild(task);
+
+            };
         });
 
         console.log(todoList);
 
-        // Checkbox click events - COMPLETED
-        const checkbox = document.querySelectorAll('#checkbox');
+        // Checkbox click events
+        const checkbox = document.querySelectorAll('.checkbox');
         let isComplete = false;
 
-        if (!isComplete){
+        if (!isComplete) {
             checkbox.forEach(btn => {
-                btn.addEventListener('click', function(){
+                btn.addEventListener('click', function () {
                     btn.style.backgroundColor = '#4338ca';
-                }); 
-            });   
-        } else if (isComplete){
-            checkbox.forEach(btn =>{
-                btn.addEventListener('click', function() {
+                });
+            });
+        } else if (isComplete) {
+            checkbox.forEach(btn => {
+                btn.addEventListener('click', function () {
                     btn.style.backgroundColor = '#fff';
                 })
             })
@@ -173,4 +205,5 @@
 
     </script>
 </body>
+
 </html>
