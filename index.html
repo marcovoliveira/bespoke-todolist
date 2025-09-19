@@ -78,6 +78,7 @@
         .completed .task {
             text-decoration: line-through;
             color: #94a3b8;
+            transition: color 0.3s ease, text-decoration-color 0.3s ease;
         }
 
         /* Add button styling */
@@ -157,14 +158,32 @@
         const btn = document.getElementById('add-btn');
         const todoList = document.getElementById('todo-list');
 
-        let loadTodo = JSON.parse(localStorage.getItem('todos')) || [];
-        loadTodo.forEach(taskText => {
+        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+
+        function saveTodo() {
+            localStorage.setItem('todos', JSON.stringify(todos));
+        };
+
+
+        document.querySelectorAll('.checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function () {
+                checkbox.parentElement.classList.toggle('completed');
+            });
+        });
+
+
+        todos.forEach(taskText => {
 
             const task = document.createElement('li');
             const checkbox = document.createElement('span');
             const taskDescription = document.createElement('span');
-            taskDescription.textContent = taskText;
+
+
             checkbox.classList.add('checkbox');
+            taskDescription.classList.add('task');
+            taskDescription.textContent = taskText;
+
             checkbox.addEventListener('click', function () {
                 task.classList.toggle('completed');
             });
@@ -174,20 +193,8 @@
             todoList.appendChild(task);
         });
 
-        document.querySelectorAll('.checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function () {
-                checkbox.parentElement.classList.toggle('completed');
-            });
-        });
 
 
-        let todos = loadTodo;
-
-
-
-        function saveTodo() {
-            localStorage.setItem('todos', JSON.stringify(todos));
-        };
 
         btn.addEventListener('click', function () {
             const text = input.value;
@@ -218,11 +225,14 @@
 
 
 
-        
 
 
 
-   
+
+
+
+
+
 
     </script>
 </body>
