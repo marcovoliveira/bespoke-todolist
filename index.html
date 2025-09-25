@@ -75,11 +75,17 @@
         }
 
         /* Tip: You can add a completed class to style checked tasks */
-        .completed .task {
+        .completed .taskDescription {
             text-decoration: line-through;
             color: #94a3b8;
             transition: color 0.3s ease, text-decoration-color 0.3s ease;
         }
+
+        .completed .checkbox {
+            background-color: #6366f1;
+            border-color: #6366f1;
+        }
+
 
         /* Add button styling */
         .add-task {
@@ -125,18 +131,18 @@
     <div class="container">
         <h1>My TODO List</h1>
         <ul id="todo-list">
-            <li>
-                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+            <!-- <li>
+                <span class="checkbox"></span>
                 <span class="task">Learn HTML & CSS</span>
             </li>
             <li>
-                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="checkbox"></span>
                 <span class="task">Start learning JavaScript</span>
             </li>
             <li>
-                <span class="checkbox"><!-- JS: Add click event to toggle completed --></span>
+                <span class="checkbox"></span>
                 <span class="task">Build interactive TODO list</span>
-            </li>
+            </li> -->
         </ul>
         <form class="add-task" autocomplete="off">
             <input class="add-input" id="add-input" type="text" placeholder="Add a new task...">
@@ -154,11 +160,97 @@
     <script>
         // Enabling Input and Button
 
-        const input = document.getElementById('add-input');
-        const btn = document.getElementById('add-btn');
-        const todoList = document.getElementById('todo-list');
+        // const input = document.getElementById('add-input');
+        // const btn = document.getElementById('add-btn');
+        // const todoList = document.getElementById('todo-list');
 
-        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+        // let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+
+        // function saveTodo() {
+        //     localStorage.setItem('todos', JSON.stringify(todos));
+        // };
+
+
+        // // Toggles HTML completion 
+        // document.querySelectorAll('.checkbox').forEach(checkbox => {
+        //     checkbox.addEventListener('click', function () {
+        //         checkbox.parentElement.classList.toggle('completed');
+        //     });
+        // });
+
+        // //Saves new todos and loads styles
+        // todos.forEach(taskText => {
+
+        //     const task = document.createElement('li');
+        //     const checkbox = document.createElement('span');
+        //     const taskDescription = document.createElement('span');
+
+
+        //     checkbox.classList.add('checkbox');
+        //     taskDescription.classList.add('task');
+        //     taskDescription.textContent = taskText;
+
+        //     checkbox.addEventListener('click', function () {
+        //         task.classList.toggle('completed');
+        //     });
+
+        //     task.appendChild(checkbox);
+        //     task.appendChild(taskDescription);
+        //     todoList.appendChild(task);
+        // });
+
+
+
+        // //Gets new todos from user input
+        // btn.addEventListener('click', function () {
+        //     const text = input.value;
+        //     todos.push({
+        //         description: text,
+        //         completed: false
+        //     });
+
+
+        //     input.value = '';
+
+        //     if (text !== '') {
+        //         const task = document.createElement('li');
+        //         const checkbox = document.createElement('span');
+        //         const taskDescription = document.createElement('span');
+
+
+        //         checkbox.classList.add('checkbox');
+        //         checkbox.addEventListener('click', function () {
+        //             task.classList.toggle('completed');
+        //         });
+        //         taskDescription.classList.add('task');
+        //         taskDescription.textContent = todo.description;
+        //         saveTodo();
+
+        //         task.appendChild(checkbox);
+        //         task.appendChild(taskDescription);
+        //         todoList.appendChild(task);
+
+        //     };
+        // });
+
+
+
+        let todosObj = [{
+            description: "Learn HTML & CSS",
+            completed: false
+        },
+        {
+            description: "Start learning JavaScript",
+            completed: false
+        },
+        {
+            description: "Build interactive TODO list",
+            completed: false
+        }
+        ];
+
+        let todos = JSON.parse(localStorage.getItem('todos')) || todosObj;
 
 
         function saveTodo() {
@@ -166,62 +258,72 @@
         };
 
 
-        document.querySelectorAll('.checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function () {
-                checkbox.parentElement.classList.toggle('completed');
-            });
-        });
+        const todoList = document.getElementById('todo-list');
 
-
-        todos.forEach(taskText => {
-
+        todos.forEach((todo) => {
             const task = document.createElement('li');
+            todoList.appendChild(task);
+
+
             const checkbox = document.createElement('span');
-            const taskDescription = document.createElement('span');
-
-
-            checkbox.classList.add('checkbox');
-            taskDescription.classList.add('task');
-            taskDescription.textContent = taskText;
-
+            checkbox.classList.add('checkbox'); //gets CSS styling
             checkbox.addEventListener('click', function () {
                 task.classList.toggle('completed');
+                todo.completed = !todo.completed;
+                saveTodo();
             });
-
             task.appendChild(checkbox);
+
+
+
+            if (todo.completed === true) {
+                task.classList.add('completed');
+            };
+
+
+            const taskDescription = document.createElement('span');
+            taskDescription.classList.add('taskDescription');
+            taskDescription.textContent = todo.description;
             task.appendChild(taskDescription);
-            todoList.appendChild(task);
         });
 
+        console.log(todos);
 
 
+        const input = document.getElementById('add-input');
+        const btn = document.getElementById('add-btn');
 
         btn.addEventListener('click', function () {
             const text = input.value;
-            todos.push(text);
+            let todosObj = {
+                description: text,
+                completed: false
+            };
+            todos.push(todosObj);
+            saveTodo();
 
             input.value = '';
 
-            if (text !== '') {
-                const task = document.createElement('li');
-                const checkbox = document.createElement('span');
-                const taskDescription = document.createElement('span');
+            const task = document.createElement('li');
+            todoList.appendChild(task);
 
-
-                checkbox.classList.add('checkbox');
-                checkbox.addEventListener('click', function () {
-                    task.classList.toggle('completed');
-                });
-                taskDescription.classList.add('task');
-                taskDescription.textContent = text;
+            const checkbox = document.createElement('span');
+            checkbox.classList.add('checkbox'); //gets CSS styling
+            checkbox.addEventListener('click', function () {
+                task.classList.toggle('completed');
+                todo.completed = !todosObj.completed;
                 saveTodo();
+            });
+            task.appendChild(checkbox);
 
-                task.appendChild(checkbox);
-                task.appendChild(taskDescription);
-                todoList.appendChild(task);
-
-            };
+            const taskDescription = document.createElement('span');
+            taskDescription.classList.add('taskDescription');
+            taskDescription.textContent = todosObj.description;
+            task.appendChild(taskDescription);
         });
+
+
+
 
 
 
