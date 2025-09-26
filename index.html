@@ -159,7 +159,7 @@
 
     <script>
         
-
+        // Array of objects
         let todosObj = [{
             description: "Learn HTML & CSS",
             completed: false
@@ -174,16 +174,18 @@
         }
         ];
 
+        // loads todos or gets todo array
         let todos = JSON.parse(localStorage.getItem('todos')) || todosObj;
 
-
+        //saves todo
         function saveTodo() {
             localStorage.setItem('todos', JSON.stringify(todos));
         };
 
-
+        //gets todo list from HTML
         const todoList = document.getElementById('todo-list');
 
+        // loops through each todo, gets css styling, puts everything on the page, and saves todo and completion status
         todos.forEach((todo) => {
             const task = document.createElement('li');
             todoList.appendChild(task);
@@ -213,10 +215,11 @@
 
         console.log(todos);
 
-
+        // Gets button and input
         const input = document.getElementById('add-input');
         const btn = document.getElementById('add-btn');
 
+        // click event to add user input to obj and array
         btn.addEventListener('click', function () {
             const text = input.value;
             let todosObj = {
