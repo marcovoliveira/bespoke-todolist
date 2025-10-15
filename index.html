@@ -159,12 +159,44 @@
 
     <script>
 
+        let todos = [];
+
         async function getTodos() {
             const response = await fetch('https://draft-70uz.onrender.com/todos');
             const todoData = await response.json();
             todos = todoData;
-            console.log(response, todoData);
+
+            todos.forEach((todo) => {
+                const task = document.createElement('li');
+                todoList.appendChild(task);
+
+
+                const checkbox = document.createElement('span');
+                checkbox.classList.add('checkbox'); //gets CSS styling
+                checkbox.addEventListener('click', function () {
+                    task.classList.toggle('completed');
+                    todo.completed = !todo.completed;
+                    saveTodo();
+                });
+                task.appendChild(checkbox);
+
+
+
+                if (todo.completed === true) {
+                    task.classList.add('completed');
+                };
+
+
+                const taskDescription = document.createElement('span');
+                taskDescription.classList.add('taskDescription');
+                taskDescription.textContent = todo.description;
+                task.appendChild(taskDescription);
+            });
+
+            console.log(todos);
         }
+
+        getTodos();
 
         // Array of objects
         let todosObj = [{
@@ -182,7 +214,7 @@
         ];
 
         // loads todos or gets todo array
-        let todos = JSON.parse(localStorage.getItem('todos')) || todosObj;
+        // let todos = JSON.parse(localStorage.getItem('todos')) || todosObj;
 
         //saves todo
         function saveTodo() {
