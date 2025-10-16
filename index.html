@@ -196,6 +196,7 @@
             console.log(todos);
         }
 
+        
         getTodos();
 
         // Array of objects
@@ -225,48 +226,59 @@
         const todoList = document.getElementById('todo-list');
 
         // loops through each todo, gets css styling, puts everything on the page, and saves todo and completion status
-        todos.forEach((todo) => {
-            const task = document.createElement('li');
-            todoList.appendChild(task);
+        // todos.forEach((todo) => {
+        //     const task = document.createElement('li');
+        //     todoList.appendChild(task);
 
 
-            const checkbox = document.createElement('span');
-            checkbox.classList.add('checkbox'); //gets CSS styling
-            checkbox.addEventListener('click', function () {
-                task.classList.toggle('completed');
-                todo.completed = !todo.completed;
-                saveTodo();
-            });
-            task.appendChild(checkbox);
+        //     const checkbox = document.createElement('span');
+        //     checkbox.classList.add('checkbox'); //gets CSS styling
+        //     checkbox.addEventListener('click', function () {
+        //         task.classList.toggle('completed');
+        //         todo.completed = !todo.completed;
+        //         saveTodo();
+        //     });
+        //     task.appendChild(checkbox);
 
 
 
-            if (todo.completed === true) {
-                task.classList.add('completed');
-            };
+        //     if (todo.completed === true) {
+        //         task.classList.add('completed');
+        //     };
 
 
-            const taskDescription = document.createElement('span');
-            taskDescription.classList.add('taskDescription');
-            taskDescription.textContent = todo.description;
-            task.appendChild(taskDescription);
-        });
+        //     const taskDescription = document.createElement('span');
+        //     taskDescription.classList.add('taskDescription');
+        //     taskDescription.textContent = todo.description;
+        //     task.appendChild(taskDescription);
+        // });
 
-        console.log(todos);
+        // console.log(todos);
 
         // Gets button and input
         const input = document.getElementById('add-input');
         const btn = document.getElementById('add-btn');
 
         // click event to add user input to obj and array
-        btn.addEventListener('click', function () {
+
+
+
+        
+            btn.addEventListener('click', async function () {
             const text = input.value;
             let todosObj = {
                 description: text,
                 completed: false
             };
+
             todos.push(todosObj);
-            saveTodo();
+            const response = await fetch('https://draft-70uz.onrender.com/todos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(todosObj)
+        });
+
+            const data = await response.json();
 
             input.value = '';
 
@@ -277,7 +289,7 @@
             checkbox.classList.add('checkbox'); //gets CSS styling
             checkbox.addEventListener('click', function () {
                 task.classList.toggle('completed');
-                todo.completed = !todosObj.completed;
+                todosObj.completed = !todosObj.completed;
                 saveTodo();
             });
             task.appendChild(checkbox);
@@ -287,7 +299,19 @@
             taskDescription.textContent = todosObj.description;
             task.appendChild(taskDescription);
         });
+    
+    //         const text = input.value;
+    //         let todosObj = {
+    //             description: text,
+    //             completed: false
+    //         };
 
+    //         todos.push(todosObj);
+
+         
+    // }
+    
+            
 
 
 
