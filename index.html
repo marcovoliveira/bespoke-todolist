@@ -161,12 +161,17 @@
 
         let todos = [];
 
+        
+
+        const todoList = document.getElementById('todo-list');
+
         async function getTodos() {
             const response = await fetch('https://draft-70uz.onrender.com/todos');
             const todoData = await response.json();
             todos = todoData;
 
             todos.forEach((todo) => {
+                if (!todo.text) return; // skip todos with no text
                 const task = document.createElement('li');
                 todoList.appendChild(task);
 
@@ -176,7 +181,6 @@
                 checkbox.addEventListener('click', function () {
                     task.classList.toggle('completed');
                     todo.completed = !todo.completed;
-                    saveTodo();
                 });
                 task.appendChild(checkbox);
 
@@ -189,41 +193,40 @@
 
                 const taskDescription = document.createElement('span');
                 taskDescription.classList.add('taskDescription');
-                taskDescription.textContent = todo.description;
+                taskDescription.textContent = todo.text;
                 task.appendChild(taskDescription);
             });
 
-            console.log(todos);
+            console.log(todoData);
         }
 
-        
         getTodos();
 
         // Array of objects
-        let todosObj = [{
-            description: "Learn HTML & CSS",
-            completed: false
-        },
-        {
-            description: "Start learning JavaScript",
-            completed: false
-        },
-        {
-            description: "Build interactive TODO list",
-            completed: false
-        }
-        ];
+        // let todosObj = [{
+        //     text: "Learn HTML & CSS",
+        //     completed: false
+        // },
+        // {
+        //     text: "Start learning JavaScript",
+        //     completed: false
+        // },
+        // {
+        //     text: "Build interactive TODO list",
+        //     completed: false
+        // }
+        // ];
 
         // loads todos or gets todo array
         // let todos = JSON.parse(localStorage.getItem('todos')) || todosObj;
 
         //saves todo
-        function saveTodo() {
-            localStorage.setItem('todos', JSON.stringify(todos));
-        };
+        // function saveTodo() {
+        //     localStorage.setItem('todos', JSON.stringify(todos));
+        // };
 
         //gets todo list from HTML
-        const todoList = document.getElementById('todo-list');
+        
 
         // loops through each todo, gets css styling, puts everything on the page, and saves todo and completion status
         // todos.forEach((todo) => {
@@ -255,6 +258,9 @@
 
         // console.log(todos);
 
+        
+       
+
         // Gets button and input
         const input = document.getElementById('add-input');
         const btn = document.getElementById('add-btn');
@@ -267,7 +273,7 @@
             btn.addEventListener('click', async function () {
             const text = input.value;
             let todosObj = {
-                description: text,
+                text: text,
                 completed: false
             };
 
@@ -278,7 +284,7 @@
             body: JSON.stringify(todosObj)
         });
 
-            const data = await response.json();
+            // const data = await response.json();
 
             input.value = '';
 
@@ -290,13 +296,12 @@
             checkbox.addEventListener('click', function () {
                 task.classList.toggle('completed');
                 todosObj.completed = !todosObj.completed;
-                saveTodo();
             });
             task.appendChild(checkbox);
 
             const taskDescription = document.createElement('span');
             taskDescription.classList.add('taskDescription');
-            taskDescription.textContent = todosObj.description;
+            taskDescription.textContent = todosObj.text;
             task.appendChild(taskDescription);
         });
     
